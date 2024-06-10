@@ -61,7 +61,7 @@ const PopupModal:FC <IPopupModalProps>= ({
           </DialogContent>
           <Box className="aspectImgs" sx={{ position: 'relative' }}>
             <IconButton
-              sx={{ position: 'absolute', top: '40%', left: '10px', zIndex: 1 }}
+              sx={{ position: 'absolute', top: '50%', left: '10px', zIndex: 1 }}
               onClick={handlePrevImage}
             >
               <ArrowBackIosIcon />
@@ -74,7 +74,7 @@ const PopupModal:FC <IPopupModalProps>= ({
             <IconButton
               sx={{
                 position: 'absolute',
-                top: '40%',
+                top: '50%',
                 right: '10px',
                 zIndex: 1,
               }}

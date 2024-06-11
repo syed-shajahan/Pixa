@@ -197,6 +197,11 @@ code {
     top: 20px;
     border-radius: 100px;
   }
+  .custom_modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+  }
 }
 
 /* All media quaries ends here */

@@ -41,14 +41,15 @@ const PopupModal:FC <IPopupModalProps>= ({
           aria-describedby="alert-dialog-description"
           PaperProps={{
             style: {
-              width: '100%',
+              width: '95%',
               maxWidth: '680px',
+              margin:'0px',
               maxHeight: 'auto',
             },
           }}
         >
           <DialogActions>
-            <IconButton onClick={handleClose}>
+            <IconButton onClick={handleClose} sx={{padding:'0px', marginTop:'5px', marginRight:'5px'}}>
               <CloseOutlinedIcon />
             </IconButton>
           </DialogActions>

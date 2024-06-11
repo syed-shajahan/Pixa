@@ -24,7 +24,7 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, likes, handleLike, handleCl
         <img
           className="aspectImages cursor_pointer"
           src={item.urls.regular}
-          alt=""
+          alt={item.alt_description}
           onClick={() => handleClickOpen(index)}
         />
         <span className="profilePics">

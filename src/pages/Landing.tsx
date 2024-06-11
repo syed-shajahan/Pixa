@@ -1,17 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { IconButton, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined'
 import { LandingPageTitles } from '../utils/CommonConst'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import PopupModal from '../components/PopupModal'
 import SearchForm from '../components/SearchForm'
 import MainCard from '../components/MainCard'
@@ -51,6 +46,9 @@ interface Iusers {
 }
 
 const Landing = () => {
+  //NOTE: ----old Access_Key key below----
+  // xWvqzCirtYSno64CSUFW9Qh_-RqCBbx7KgO8M6k2wiAa
+
   const Access_Key = '4gljNh90wF9AyrmnoBbBgA8XvJJoo3LvpmjbHrKRLYY'
   const [data, setData] = useState<IpropsData[]>([])
   const [query, setQuery] = useState('')

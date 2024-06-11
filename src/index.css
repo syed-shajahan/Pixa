@@ -186,6 +186,43 @@ code {
   background-color: #ffffff86;
 }
 
+.slider_btns {
+  position: absolute !important;
+  top: 45% !important;
+  transform: translateY(-45%) !important;
+  z-Index: 10 !important;
+  background-color: #ffffff29 !important;
+  backdrop-filter: blur(5px) !important ;
+  display: flex !important;
+  align-items: center !important;
+  width: 50px;
+  height: 50px;
+  justify-content: center !important;
+}
+
+.slider_btns svg:hover {
+  color: #fff !important;
+}
+
+.slider_btns svg {
+  color: #ffffffbd !important;
+}
+
+
+.slider_btns.left svg {
+  transform: translateX(4px);
+}
+
+.slider_btns.right {
+  right: -70px;
+}
+
+.slider_btns.left {
+  left: -70px;
+}
+
+
+
 /* All media quaries here below */
 @media(max-width:992px) {
   .gridContainer {
@@ -197,11 +234,26 @@ code {
     top: 20px;
     border-radius: 100px;
   }
+
   .custom_modal {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0px !important;
   }
+  .slider_btns.right {
+    right: 0px;
+  }
+  
+  .slider_btns.left {
+    left: 0px;
+  }
+
+  .slider_btns {
+    width: 20px;
+    height: 20px;
+    background: transparent !important;
+  }
+  
 }
 
 /* All media quaries ends here */

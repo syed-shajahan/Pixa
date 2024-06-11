@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.logo_txt {
+  text-decoration: none !important;
+  display: flex;
+  align-items: flex-end;
+  display: block;
+  width: max-content;
+  margin: auto;
+}
+
+.logo_txt h1 {
+  font-size: 40px !important;
+  letter-spacing: 0.4px !important;
+  color: #1b1b1b !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.aspectImgs {
+  padding-top: 100%;
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.aspectImgs .aspectImages {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
+.profilePics {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  overflow: hidden;
+  border: 1px solid #eeeeeeaa;
+}
+
+.profilePics img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing_sec {
+  padding-top: 40px;
+}
+
+.container {
+  padding: 0px 20px;
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.camera {
+  display: inline-block;
+  font-size: 40px !important;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.custom_card {
+  padding: 15px;
+  background-color: #fff !important;
+  box-shadow: 0px 22px 35px #3e3e3e45 !important;
+  border: 1px solid #eee;
+}
+
+.searchForm {
+  margin: 40px auto 20px;
+  width: 90%;
+  position: sticky;
+  z-index: 99;
+  display: block;
+  top: 50px;
+  background: #ffffff9c;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.searchForm:focus-within {
+  outline: none !important;
+  border: none;
+}
+
+.custom_modal {
+  width: 90% !important;
+  max-width: 90% !important;
+  margin: auto;
+}
+
+.like_btn {
+  position: absolute !important;
+  top: 20px !important;
+  left: 20px !important;
+  color: #fff !important;
+}
+
+.form_Input input {
+  font-size: 15px;
+  color: #1b1b1b;
+  letter-spacing: 0.40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form_Input:focus-within {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.form_Input input::placeholder {
+  color: #1b1b1bd7;
+  font-weight: 500 !important;
+}
+
+.form_Input input:focus-within {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.container {
+  padding: 0px 10px;
+  max-width: 1920px;
+  margin: auto;
+}
+
+.gridContainer {
+  max-width: 1450px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+.img_downLoadBtn {
+  text-decoration: none;
+  background-color: #ffffff30;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(7px);
+}
+
+.img_downLoadBtn svg {
+  color: #e3e3e3;
+}
+
+.img_downLoadBtn:hover {
+  background-color: #ffffff86;
+}
+
+/* All media quaries here below */
+@media(max-width:992px) {
+  .gridContainer {
+    margin: 20px auto;
+  }
+
+  .searchForm {
+    margin: 20px;
+    top: 20px;
+    border-radius: 100px;
+  }
+}
+
+/* All media quaries ends here */

@@ -89,7 +89,8 @@ const Landing = () => {
     event: React.ChangeEvent<unknown>,
     value: number,
   ) => {
-    setPage(value)
+    setPage(value);
+    window.scrollTo({top:0})
   }
 
   const handleClickOpen = (index: number) => {
@@ -136,30 +137,7 @@ const Landing = () => {
             query={query}
             setQuery={setQuery}
           />
-          <Box
-            sx={{
-              flex: '1',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              marginBotton: '20px !important',
-            }}
-          >
-            <Stack
-              spacing={2}
-              sx={{
-                margin: '10px auto 20px',
-                maxWidth: '800px',
-              }}
-            >
-              <Pagination
-                page={page}
-                count={100}
-                color="secondary"
-                onChange={handlePageChange}
-              />
-            </Stack>
-          </Box>
+          
           <Box className="gridContainer">
             <Grid container spacing={2}>
               {data?.map((item, index) => {

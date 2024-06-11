@@ -1,3 +1,3 @@
 export const enum  LandingPageTitles {
-LOGO_TITLES ="PIXA"
+LOGO_TITLES ="PIXAA"
 }

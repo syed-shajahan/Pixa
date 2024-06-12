@@ -63,7 +63,7 @@ const Landing = () => {
       try {
         const response = await fetch(API_URL)
         const responseData = await response.json()
-        setData(query ? responseData.results : responseData)
+        setData((prevData) => query ? [...prevData, ...responseData.results] : [...prevData, ...responseData])
         console.log(responseData, 'test')
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -87,13 +87,13 @@ const Landing = () => {
     }
   }
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
-    setPage(value)
-    window.scrollTo({ top: 0 })
-  }
+  // const handlePageChange = (
+  //   event: React.ChangeEvent<unknown>,
+  //   value: number,
+  // ) => {
+  //   setPage(value)
+  //   window.scrollTo({ top: 0 })
+  // }
 
   const handleClickOpen = (index: number) => {
     setOpen(true)
@@ -126,6 +126,18 @@ const Landing = () => {
   const handlePageUp = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+ 
+  const handleInfiniteScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setPage((prev) => prev + 1)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll)
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
+  }, [])
 
   return (
     <>
@@ -177,12 +189,12 @@ const Landing = () => {
                 maxWidth: '800px',
               }}
             >
-              <Pagination
+              {/* <Pagination
                 page={page}
                 count={100}
                 color="secondary"
                 onChange={handlePageChange}
-              />
+              /> */}
             </Stack>
           </Box>
         </Box>

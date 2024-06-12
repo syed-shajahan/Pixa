@@ -46,35 +46,36 @@ interface Iusers {
 }
 
 const Landing = () => {
-  //NOTE: ----old Access_Key key below----
-  // xWvqzCirtYSno64CSUFW9Qh_-RqCBbx7KgO8M6k2wiAa
-
   const Access_Key = '4gljNh90wF9AyrmnoBbBgA8XvJJoo3LvpmjbHrKRLYY'
   const [data, setData] = useState<IpropsData[]>([])
   const [query, setQuery] = useState('')
-  const [page, setPage] = useState<number>(1)
+  const [page, setPage] = useState<number>(0)
   const [open, setOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [likes, setLikes] = useState<{ [key: number]: boolean }>({})
 
   useEffect(() => {
-    const API_URL = `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`
+    const API_URL = query
+      ? `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=${page}`
+      : `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`
+
     const fetchData = async () => {
       try {
         const response = await fetch(API_URL)
         const responseData = await response.json()
-        setData(responseData)
-        console.log(data, 'test')
+        setData(query ? responseData.results : responseData)
+        console.log(responseData, 'test')
       } catch (error) {
         console.error('Error fetching data:', error)
       }
     }
     fetchData()
-  }, [page])
+  }, [page, query])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const API_URL2 = `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=${page}`
+    setPage(1)
+    const API_URL2 = `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=1`
 
     try {
       const response = await fetch(API_URL2)
@@ -85,12 +86,9 @@ const Landing = () => {
     }
   }
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
-    setPage(value);
-    window.scrollTo({top:0})
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value)
+    window.scrollTo({ top: 0 })
   }
 
   const handleClickOpen = (index: number) => {
@@ -138,6 +136,7 @@ const Landing = () => {
             setQuery={setQuery}
           />
           
+
           <Box className="gridContainer">
             <Grid container spacing={2}>
               {data?.map((item, index) => {

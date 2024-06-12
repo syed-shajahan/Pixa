@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -254,7 +253,15 @@ code {
     height: 20px;
     background: transparent !important;
   }
-  
+  .img_downLoadBtn {
+    padding: 0px;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+}
+
+
 }
 
 /* All media quaries ends here */

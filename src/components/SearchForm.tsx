@@ -14,7 +14,6 @@ const SearchForm: FC<ISearchProps> = ({ handleSubmit, query, setQuery }) => {
       <form onSubmit={handleSubmit} action="#" className="searchForm">
         <TextField
           className="form_Input"
-          variant="outlined"
           style={{ width: '100%' }}
           placeholder="Search Moment's you wish for..."
           value={query}

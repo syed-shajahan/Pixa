@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { Stack } from '@mui/material'
+import { IconButton, Stack } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined'
 import { LandingPageTitles } from '../utils/CommonConst'
 import PopupModal from '../components/PopupModal'
 import SearchForm from '../components/SearchForm'
 import MainCard from '../components/MainCard'
-
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 export interface IpropsData {
   alt_description: string
   urls: ImageUrls
@@ -49,7 +49,7 @@ const Landing = () => {
   const Access_Key = '4gljNh90wF9AyrmnoBbBgA8XvJJoo3LvpmjbHrKRLYY'
   const [data, setData] = useState<IpropsData[]>([])
   const [query, setQuery] = useState('')
-  const [page, setPage] = useState<number>(0)
+  const [page, setPage] = useState<number>(1)
   const [open, setOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [likes, setLikes] = useState<{ [key: number]: boolean }>({})
@@ -70,6 +70,7 @@ const Landing = () => {
       }
     }
     fetchData()
+    query && window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [page, query])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -86,7 +87,10 @@ const Landing = () => {
     }
   }
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
     setPage(value)
     window.scrollTo({ top: 0 })
   }
@@ -119,6 +123,10 @@ const Landing = () => {
     }))
   }
 
+  const handlePageUp = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <>
       <section className="landing_sec">
@@ -135,7 +143,6 @@ const Landing = () => {
             query={query}
             setQuery={setQuery}
           />
-          
 
           <Box className="gridContainer">
             <Grid container spacing={2}>
@@ -188,6 +195,10 @@ const Landing = () => {
           handleNextImage={handleNextImage}
           data={data}
         />
+
+        <IconButton className="toTopBtn" onClick={handlePageUp}>
+          <ArrowUpwardIcon />
+        </IconButton>
       </section>
     </>
   )

@@ -54,16 +54,10 @@ const PopupModal: FC<IPopupModalProps> = ({
             <CloseOutlinedIcon />
           </IconButton>
         </DialogActions>
-        <DialogContent
-          sx={{ padding: '0px 15px', marginBottom: '20px', height: 'auto' }}
-        >
-          <DialogContentText id="alert-dialog-description">
-            {data[currentIndex]?.alt_description}
-          </DialogContentText>
-        </DialogContent>
+      
 
         {/* image-like content-below */}
-        <Box className="aspectImgs" sx={{ position: 'relative' }}>
+        <Box className="aspectImgs" sx={{ position: 'relative'}}>
           
           <img
             className="aspectImages"
@@ -89,7 +83,13 @@ const PopupModal: FC<IPopupModalProps> = ({
           </IconButton>
         </Box>
         {/* image-like content-ends-here */}
-        
+        <DialogContent
+          sx={{ padding: '12px', height: '65px', color:"red !Important", overflowY:"unset !Important" }}
+        >
+          <DialogContentText id="alert-dialog-description" sx={{fontSize:{xs:"13px", md:"15px"}}}>
+            {data[currentIndex]?.alt_description}
+          </DialogContentText>
+        </DialogContent>
       </Dialog>
     </>
   )

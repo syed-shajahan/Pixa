@@ -19,6 +19,7 @@ const SearchForm: FC<ISearchProps> = ({ handleSubmit, query, setQuery }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           InputProps={{
+           
             endAdornment: (
               <IconButton type="submit">
                 <SearchIcon />

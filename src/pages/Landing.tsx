@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import { IconButton, Stack } from '@mui/material'
-// import Pagination from '@mui/material/Pagination';
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined'
 import { LandingPageTitles } from '../utils/CommonConst'
 import PopupModal from '../components/PopupModal'
@@ -57,27 +56,37 @@ const Landing = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [likes, setLikes] = useState<{ [key: number]: boolean }>({})
   const [loading, setLoading] = useState<boolean>(false)
+  const [hasMore, setHasMore] = useState<boolean>(true)
 
   const fetchData = useCallback(async () => {
     const API_URL = query
       ? `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=${page}`
       : `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`
 
-    setLoading(true) // Set loading to true before fetching data
+    setLoading(true)
     try {
       const response = await fetch(API_URL)
       const responseData = await response.json()
-      setData((prevData) =>
-        query
-          ? [...prevData, ...responseData.results]
-          : [...prevData, ...responseData],
-      )
-      console.log(responseData, 'test')
+      if (responseData.results) {
+        if (responseData.results.length === 0) {
+          setHasMore(false)
+        } else {
+          setData((prevData) => [...prevData, ...responseData.results])
+        }
+      } else {
+        if (responseData.length === 0) {
+          setHasMore(false)
+        } else {
+          setData((prevData) => [...prevData, ...responseData])
+        }
+      }
     } catch (error) {
       console.error('Error fetching data:', error)
     }
-    setLoading(false) // Set loading to false after data is fetched
+    setLoading(false)
   }, [page, query])
+
+  console.log(page, 'is this')
 
   useEffect(() => {
     fetchData()
@@ -85,19 +94,10 @@ const Landing = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const API_URL2 = `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=1`
-
-    try {
-      setLoading(true) 
-      const response = await fetch(API_URL2)
-      const responseData = await response.json()
-      setData(responseData.results)
-      setLoading(false) 
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      setLoading(false)
-    }
-    setQuery(" ");
+    setPage(1)
+    setData([])
+    setHasMore(true)
+    fetchData()
   }
 
   const handleClickOpen = (index: number) => {
@@ -132,7 +132,6 @@ const Landing = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-
   return (
     <>
       <section className="landing_sec">
@@ -150,23 +149,22 @@ const Landing = () => {
             setQuery={setQuery}
           />
 
-          {loading ? (
+          {loading && page === 1 ? (
             <Preloader />
           ) : (
             <Box className="gridContainer">
-           
-                <InfiniteScroll
-                  dataLength={data.length}
-                  next={fetchData}
-                  hasMore={true}
-                  loader={<h4>Loading...</h4>}
-                  endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <b>Yay! You have seen it all</b>
-                    </p>
-                  }
-                >
-                     <Grid container spacing={2}>
+              <InfiniteScroll
+                dataLength={data.length}
+                next={() => setPage((prevPage) => prevPage + 1)}
+                hasMore={hasMore}
+                loader={<h1>loading...</h1>}
+                endMessage={
+                  <p style={{ textAlign: 'center' }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+              >
+                <Grid container spacing={2}>
                   {data?.map((item, index) => (
                     <Grid item lg={6} md={6} xs={12} key={index}>
                       <MainCard
@@ -178,9 +176,8 @@ const Landing = () => {
                       />
                     </Grid>
                   ))}
-                    </Grid>
-                </InfiniteScroll>
-            
+                </Grid>
+              </InfiniteScroll>
             </Box>
           )}
 
@@ -190,7 +187,7 @@ const Landing = () => {
               display: 'flex',
               justifyContent: 'center',
               flexDirection: 'column',
-              marginBotton: '20px !important',
+              marginBottom: '20px !important',
             }}
           >
             <Stack
@@ -199,14 +196,7 @@ const Landing = () => {
                 margin: '10px auto 20px',
                 maxWidth: '800px',
               }}
-            >
-              {/* <Pagination
-                page={page}
-                count={100}
-                color="secondary"
-                onChange={handlePageChange}
-              /> */}
-            </Stack>
+            ></Stack>
           </Box>
         </Box>
 

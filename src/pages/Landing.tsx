@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { IconButton, Stack } from '@mui/material';
+import { CircularProgress, IconButton, Stack } from '@mui/material';
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 import { LandingPageTitles } from '../utils/CommonConst';
 import PopupModal from '../components/PopupModal';
@@ -157,7 +157,21 @@ const Landing = () => {
                 dataLength={data.length}
                 next={() => setPage((prevPage) => prevPage + 1)}
                 hasMore={hasMore}
-                loader={<h1>loading...</h1>}
+                loader={
+                  loading && (
+                    <div
+                      style={{
+                        position: 'fixed',
+                        left: '50%',
+                        top: '50%',
+                        transform: ` translate(-50%, -50%)`,
+                        zIndex: '40',
+                      }}
+                    >
+                      <CircularProgress />
+                    </div>
+                  )
+                }
                 endMessage={
                   <p style={{ textAlign: 'center' }}>
                     <b>Yay! You have seen it all</b>

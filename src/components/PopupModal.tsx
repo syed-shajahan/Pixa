@@ -87,11 +87,11 @@ const PopupModal: FC<IPopupModalProps> = ({
             id="alert-dialog-description"
             sx={{ fontSize: { xs: '13px', md: '15px' } }}
           >
-            <Typography gutterBottom variant="h3" component="div">
+            <Typography gutterBottom variant="h3">
               {data[currentIndex]?.user.first_name}
             </Typography>
 
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography gutterBottom variant="h6" color={'#000'}>
               {data[currentIndex]?.alt_description}
             </Typography>
           </DialogContentText>

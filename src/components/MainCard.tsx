@@ -60,14 +60,7 @@ const MainCard: FC<IpropsMainCard> = ({
           )}
         </IconButton>
       </Box>
-      {/* <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {item.user.first_name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item.alt_description}
-        </Typography>
-      </CardContent> */}
+
     </Card>
   );
 };

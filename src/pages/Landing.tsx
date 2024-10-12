@@ -62,7 +62,7 @@ const Landing = () => {
       : `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`;
 
     const fetchData = async () => {
-      setLoading(true); // Set loading to true before fetching data
+      setLoading(true); 
       try {
         const response = await fetch(API_URL);
         const responseData = await response.json();
@@ -71,27 +71,27 @@ const Landing = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false); 
     };
     fetchData();
     query && window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page, query]);
+  }, [page]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPage(1);
     const API_URL2 = `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=1`;
 
     try {
-      setLoading(true); // Set loading to true before fetching data
+      setLoading(true); 
       const response = await fetch(API_URL2);
       const responseData = await response.json();
       setData(responseData.results);
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false); 
     } catch (error) {
       console.error('Error fetching data:', error);
-      setLoading(false); // Set loading to false if there is an error
+      setLoading(false); 
     }
+    setQuery("");
   };
 
   const handleClickOpen = (index: number) => {

@@ -1,23 +1,29 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import { IconButton } from '@mui/material'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import { FC } from 'react'
-import { IpropsData } from '../pages/Landing'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { IconButton } from '@mui/material';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { FC } from 'react';
+import { IpropsData } from '../pages/Landing';
 
 interface IpropsMainCard {
-    item: IpropsData;
-    index: number;
-    likes: { [key: number]: boolean };
-    handleLike: (index: number) => void;
-    handleClickOpen: (index: number) => void;
+  item: IpropsData;
+  index: number;
+  likes: { [key: number]: boolean };
+  handleLike: (index: number) => void;
+  handleClickOpen: (index: number) => void;
 }
 
-const MainCard: FC<IpropsMainCard> = ({ item, index, likes, handleLike, handleClickOpen }) => {
+const MainCard: FC<IpropsMainCard> = ({
+  item,
+  index,
+  likes,
+  handleLike,
+  handleClickOpen,
+}) => {
   return (
     <Card className="custom_card">
       <Box className="aspectImgs">
@@ -54,16 +60,9 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, likes, handleLike, handleCl
           )}
         </IconButton>
       </Box>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {item.user.first_name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item.alt_description}
-        </Typography>
-      </CardContent>
-    </Card>
-  )
-}
 
-export default MainCard
+    </Card>
+  );
+};
+
+export default MainCard;

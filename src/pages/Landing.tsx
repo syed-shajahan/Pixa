@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { IconButton, Stack } from '@mui/material';
-// import Pagination from '@mui/material/Pagination';
+import { CircularProgress, IconButton, Stack } from '@mui/material';
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 import { LandingPageTitles } from '../utils/CommonConst';
 import PopupModal from '../components/PopupModal';
@@ -11,6 +11,7 @@ import SearchForm from '../components/SearchForm';
 import MainCard from '../components/MainCard';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Preloader from '../components/Preloder';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export interface IpropsData {
   alt_description: string;
@@ -54,9 +55,10 @@ const Landing = () => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [likes, setLikes] = useState<{ [key: number]: boolean }>({});
-  const [loading, setLoading] = useState<boolean>(false); 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     const API_URL = query
       ? `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=${page}`
       : `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`;
@@ -76,6 +78,12 @@ const Landing = () => {
     fetchData();
     query && window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page]);
+
+  console.log(page, 'is this');
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -104,11 +112,15 @@ const Landing = () => {
   };
 
   const handlePrevImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? data.length - 1 : prevIndex - 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+    );
   };
 
   const handleNextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === data.length - 1 ? 0 : prevIndex + 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === data.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const handleLike = (index: number) => {
@@ -122,17 +134,6 @@ const Landing = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleInfiniteScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-      setPage((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleInfiniteScroll);
-    return () => window.removeEventListener('scroll', handleInfiniteScroll);
-  }, []);
-
   return (
     <>
       <section className="landing_sec">
@@ -144,21 +145,63 @@ const Landing = () => {
             </Typography>
           </a>
 
-          <SearchForm handleSubmit={handleSubmit} query={query} setQuery={setQuery} />
+          <SearchForm
+            handleSubmit={handleSubmit}
+            query={query}
+            setQuery={setQuery}
+          />
 
-          {loading ? (
-            <Preloader /> 
+          {loading && page === 1 ? (
+            <Preloader />
           ) : (
             <Box className="gridContainer">
-              <Grid container spacing={2}>
-                {data?.map((item, index) => {
-                  return (
-                    <Grid item lg={6} md={6} xs={12} key={index}>
-                      <MainCard item={item} index={index} likes={likes} handleLike={handleLike} handleClickOpen={handleClickOpen} />
-                    </Grid>
-                  );
-                })}
-              </Grid>
+              <InfiniteScroll
+                dataLength={data.length}
+                next={() => setPage((prevPage) => prevPage + 1)}
+                hasMore={hasMore}
+                loader={
+                  loading && (
+                    <div
+                      style={{
+                        position: 'fixed',
+                        left: '50%',
+                        top: '50%',
+                        transform: ` translate(-50%, -50%)`,
+                        zIndex: '40',
+                      }}
+                    >
+                      <CircularProgress />
+                    </div>
+                  )
+                }
+                endMessage={
+                  <p style={{ textAlign: 'center' }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+              >
+                <Box
+                  sx={{
+                    columns: { md: '2', sm: '1', xs: '1', lg: '3' },
+                    columnGap: '20px',
+                  }}
+                >
+                  {data?.map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{ width: '100%', marginBottom: '20px' }}
+                    >
+                      <MainCard
+                        item={item}
+                        index={index}
+                        likes={likes}
+                        handleLike={handleLike}
+                        handleClickOpen={handleClickOpen}
+                      />
+                    </Box>
+                  ))}
+                </Box>
+              </InfiniteScroll>
             </Box>
           )}
 
@@ -168,7 +211,7 @@ const Landing = () => {
               display: 'flex',
               justifyContent: 'center',
               flexDirection: 'column',
-              marginBotton: '20px !important',
+              marginBottom: '20px !important',
             }}
           >
             <Stack
@@ -177,14 +220,7 @@ const Landing = () => {
                 margin: '10px auto 20px',
                 maxWidth: '800px',
               }}
-            >
-              {/* <Pagination
-                page={page}
-                count={100}
-                color="secondary"
-                onChange={handlePageChange}
-              /> */}
-            </Stack>
+            ></Stack>
           </Box>
         </Box>
 

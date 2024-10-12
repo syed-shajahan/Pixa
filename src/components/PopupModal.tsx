@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box'
-import { IconButton } from '@mui/material'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { FC } from 'react'
-import { IpropsData } from '../pages/Landing'
+import Box from '@mui/material/Box';
+import { CardContent, IconButton, Typography } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { FC } from 'react';
+import { IpropsData } from '../pages/Landing';
 
 interface IPopupModalProps {
   open: boolean;
@@ -40,7 +40,7 @@ const PopupModal: FC<IPopupModalProps> = ({
           style: {
             width: '95%',
             maxWidth: '680px',
-            overflowY:'unset',
+            overflowY: 'unset',
             margin: '0px',
             maxHeight: 'auto',
           },
@@ -54,17 +54,11 @@ const PopupModal: FC<IPopupModalProps> = ({
             <CloseOutlinedIcon />
           </IconButton>
         </DialogActions>
-      
 
         {/* image-like content-below */}
-        <Box className="aspectImgs" sx={{ position: 'relative'}}>
-          
-          <img
-            className="aspectImages"
-            src={data[currentIndex]?.urls.regular}
-            alt=""
-          />
-       
+        <Box className="ModelaspectImgs" sx={{ position: 'relative' }}>
+          <img src={data[currentIndex]?.urls.regular} alt="" />
+
           <a
             href={data[currentIndex]?.urls.regular}
             className="img_downLoadBtn"
@@ -84,15 +78,27 @@ const PopupModal: FC<IPopupModalProps> = ({
         </Box>
         {/* image-like content-ends-here */}
         <DialogContent
-          sx={{ padding: '12px', height: '65px', color:"red !Important", overflowY:"unset !Important" }}
+          sx={{
+            padding: '12px',
+            overflowY: 'unset !Important',
+          }}
         >
-          <DialogContentText id="alert-dialog-description" sx={{fontSize:{xs:"13px", md:"15px"}}}>
-            {data[currentIndex]?.alt_description}
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ fontSize: { xs: '13px', md: '15px' } }}
+          >
+            <Typography gutterBottom variant="h3">
+              {data[currentIndex]?.user.first_name}
+            </Typography>
+
+            <Typography gutterBottom variant="h6" color={'#000'}>
+              {data[currentIndex]?.alt_description}
+            </Typography>
           </DialogContentText>
         </DialogContent>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default PopupModal
+export default PopupModal;

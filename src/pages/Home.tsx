@@ -4,10 +4,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { CircularProgress, IconButton, Stack } from '@mui/material';
-import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 import { LandingPageTitles } from '../utils/CommonConst';
 import PopupModal from '../components/PopupModal';
-import SearchForm from '../components/SearchForm';
 import MainCard from '../components/MainCard';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Preloader from '../components/Preloder';
@@ -47,10 +45,9 @@ interface Iusers {
   profile_image: IprofilePictureProps;
 }
 
-const Landing = () => {
+const Home = () => {
   const Access_Key = '4gljNh90wF9AyrmnoBbBgA8XvJJoo3LvpmjbHrKRLYY';
   const [data, setData] = useState<IpropsData[]>([]);
-  const [query, setQuery] = useState('');
   const [page, setPage] = useState<number>(1);
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -59,48 +56,23 @@ const Landing = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
 
   const fetchData = useCallback(async () => {
-    const API_URL = query
-      ? `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=${page}`
-      : `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`;
+    const API_URL = `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`;
 
-    const fetchData = async () => {
-      setLoading(true); 
-      try {
-        const response = await fetch(API_URL);
-        const responseData = await response.json();
-        setData((prevData) => (query ? [...prevData, ...responseData.results] : [...prevData, ...responseData]));
-        console.log(responseData, 'test');
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setLoading(false); 
-    };
-    fetchData();
-    query && window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(true);
+    try {
+      const response = await fetch(API_URL);
+      const responseData = await response.json();
+      setData((prevData) => [...prevData, ...responseData]);
+      console.log(responseData, 'test');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    setLoading(false);
   }, [page]);
-
-  console.log(page, 'is this');
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const API_URL2 = `https://api.unsplash.com/search/photos?query=${query}&client_id=${Access_Key}&page=1`;
-
-    try {
-      setLoading(true); 
-      const response = await fetch(API_URL2);
-      const responseData = await response.json();
-      setData(responseData.results);
-      setLoading(false); 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false); 
-    }
-    setQuery("");
-  };
 
   const handleClickOpen = (index: number) => {
     setOpen(true);
@@ -138,18 +110,7 @@ const Landing = () => {
     <>
       <section className="landing_sec">
         <Box className="container">
-          <a href="/" className="logo_txt">
-            <Typography variant="h1" textAlign={'center'} component="h1">
-              {LandingPageTitles.LOGO_TITLES}
-              <CollectionsOutlinedIcon className="camera" />
-            </Typography>
-          </a>
 
-          <SearchForm
-            handleSubmit={handleSubmit}
-            query={query}
-            setQuery={setQuery}
-          />
 
           {loading && page === 1 ? (
             <Preloader />
@@ -241,4 +202,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Home;

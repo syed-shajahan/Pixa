@@ -7,7 +7,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FC } from 'react';
-import { IpropsData } from '../pages/Landing';
+import { IpropsData } from '../pages/Home';
 
 interface IpropsMainCard {
   item: IpropsData;

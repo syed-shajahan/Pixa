@@ -1,11 +1,18 @@
 import React from "react";
 import "./App.css";
-import Landing from "./pages/Landing";
+import { Box } from "@mui/material";
 
 function App() {
   return (
     <>
-      <Landing />
+     
+      <Box>
+         {/* You can add other global contexts or layouts here if needed */}
+
+      </Box>
+
+
+
     </>
   );
 }

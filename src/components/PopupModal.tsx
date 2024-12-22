@@ -9,7 +9,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FC } from 'react';
-import { IpropsData } from '../pages/Landing';
+import { IpropsData } from '../pages/Home';
 
 interface IPopupModalProps {
   open: boolean;

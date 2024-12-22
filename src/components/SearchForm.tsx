@@ -1,14 +1,25 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { IconButton } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import SearchIcon from '@mui/icons-material/Search'
+import { useNavigate } from 'react-router-dom'
 
-interface ISearchProps {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
-  query: string
-  setQuery: (query: string) => void
-}
-const SearchForm: FC<ISearchProps> = ({ handleSubmit, query, setQuery }) => {
+
+const SearchForm = () => {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+    setQuery('');
+
+    if (query.trim()) {
+      navigate(`/search?query=${encodeURIComponent(query)}`)
+    }
+
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit} action="#" className="searchForm">
@@ -19,7 +30,7 @@ const SearchForm: FC<ISearchProps> = ({ handleSubmit, query, setQuery }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           InputProps={{
-           
+
             endAdornment: (
               <IconButton type="submit">
                 <SearchIcon />
@@ -32,4 +43,4 @@ const SearchForm: FC<ISearchProps> = ({ handleSubmit, query, setQuery }) => {
   )
 }
 
-export default SearchForm
+export default SearchForm;

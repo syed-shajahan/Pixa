@@ -1,27 +1,20 @@
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { IconButton } from '@mui/material';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FC } from 'react';
 import { IpropsData } from '../pages/Home';
 
 interface IpropsMainCard {
   item: IpropsData;
   index: number;
-  likes: { [key: number]: boolean };
-  handleLike: (index: number) => void;
   handleClickOpen: (index: number) => void;
 }
 
 const MainCard: FC<IpropsMainCard> = ({
   item,
   index,
-  likes,
-  handleLike,
   handleClickOpen,
 }) => {
   return (
@@ -49,15 +42,13 @@ const MainCard: FC<IpropsMainCard> = ({
           </IconButton>
         </a>
         <IconButton
-          title={likes[index] ? 'Unlike' : 'Like'}
+
           className="like_btn"
-          onClick={() => handleLike(index)}
+
         >
-          {likes[index] ? (
-            <FavoriteIcon sx={{ color: 'red' }} />
-          ) : (
-            <FavoriteBorderIcon />
-          )}
+
+          <FavoriteBorderIcon />
+
         </IconButton>
       </Box>
 

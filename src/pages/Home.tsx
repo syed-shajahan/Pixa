@@ -11,6 +11,7 @@ export interface IpropsData {
   urls: ImageUrls;
   sponsorship: IsponserShips;
   user: Iusers;
+  total_pages?:number;
 }
 
 interface ImageUrls {
@@ -47,7 +48,7 @@ const Home = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     const API_URL = `https://api.unsplash.com/photos/?client_id=${Access_Key}&page=${page}`;
 
     setLoading(true);
@@ -60,7 +61,7 @@ const Home = () => {
       console.error("Error fetching data:", error);
     }
     setLoading(false);
-  }, [page]);
+  };
 
   useEffect(() => {
     fetchData();
@@ -73,6 +74,7 @@ const Home = () => {
   return (
     <>
       <section className="landing_sec">
+        
         <Box className="container">
           {loading && page === 1 ? (
             <Preloader />

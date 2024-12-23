@@ -70,7 +70,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
           }}
         >
           {data?.map((item: any, index: number) => (
-            <Box key={index} sx={{ width: "100%", marginBottom: "20px" }}>
+            <Box key={index} sx={{ width: "100%", marginBottom: "20px", breakInside: 'avoid' }}>
               <MainCard
                 item={item}
                 index={index}

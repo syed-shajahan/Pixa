@@ -65,7 +65,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [page]);
 
   const handlePageUp = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

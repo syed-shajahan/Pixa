@@ -7,13 +7,15 @@ import { FC, useState } from "react";
 import PopupModal from "./PopupModal";
 
 interface InfinfinityGridCardProps {
-    data: IpropsData[];
-    setPage: React.Dispatch<React.SetStateAction<number>>;
+  data: IpropsData[];
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  loading?: boolean;
 }
 
 const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
   data,
   setPage,
+  loading,
 }) => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -40,23 +42,24 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
 
   return (
     <>
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            left: "50%",
+            top: "50%",
+            transform: ` translate(-50%, -50%)`,
+            zIndex: "100",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
       <InfiniteScroll
         dataLength={data.length}
         next={() => setPage((prevPage: any) => prevPage + 1)}
         hasMore={true}
-        loader={
-          <div
-            style={{
-              position: "fixed",
-              left: "50%",
-              top: "50%",
-              transform: ` translate(-50%, -50%)`,
-              zIndex: "100",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        }
+        loader={<></>}
         endMessage={
           <p style={{ textAlign: "center" }}>
             <b>Yay! You have seen it all</b>
@@ -65,12 +68,16 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
       >
         <Box
           sx={{
-            columns: { md: "2", sm: "1", xs: "1", lg: "3" },
-            columnGap: "20px",
+            columns: { md: "2", sm: "2", xs: "1", lg: "3" },
+            // columnWidth: "320px",
+            columnGap: "10px",
           }}
         >
           {data?.map((item: any, index: number) => (
-            <Box key={index} sx={{ width: "100%", marginBottom: "20px", breakInside: 'avoid' }}>
+            <Box
+              key={index}
+              sx={{ width: "100%", marginBottom: "10px", breakInside: "avoid" }}
+            >
               <MainCard
                 item={item}
                 index={index}

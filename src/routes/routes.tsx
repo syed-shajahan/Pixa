@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import SearchPage from "../pages/SearchPage";
 import Home from "../pages/Home";
-// import App from "../App";
 import MainLayout from "../layouts/MainLayout";
+import TestLayout from "../layouts/TestLayout";
 
 const routes = createBrowserRouter([
   {
@@ -11,11 +11,23 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />, 
+        element: <Home />,
       },
       {
         path: "/search",
-        element: <SearchPage />, 
+        element: <SearchPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/test-layout",
+    element: <TestLayout />,
+
+    children: [
+      {
+        path: "/test-layout/search",
+        element: '',
       },
     ],
   },

@@ -1,18 +1,11 @@
 import React from "react";
 import "./App.css";
-import { Box } from "@mui/material";
-
+import routes from "./routes/routes";
+import { RouterProvider } from "react-router-dom";
 function App() {
   return (
     <>
-     
-      <Box>
-         {/* You can add other global contexts or layouts here if needed */}
-
-      </Box>
-
-
-
+      <RouterProvider router={routes} />
     </>
   );
 }

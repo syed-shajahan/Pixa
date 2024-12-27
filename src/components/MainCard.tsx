@@ -1,10 +1,12 @@
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import { IconButton } from '@mui/material';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { FC } from 'react';
-import { IpropsData } from '../pages/Home';
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
+import { IconButton } from "@mui/material";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { FC } from "react";
+import { IpropsData } from "../pages/Home";
+import { useDispatch } from "react-redux";
+import { handleLike } from "../store/slices/likePost";
 
 interface IpropsMainCard {
   item: IpropsData;
@@ -12,11 +14,11 @@ interface IpropsMainCard {
   handleClickOpen: (index: number) => void;
 }
 
-const MainCard: FC<IpropsMainCard> = ({
-  item,
-  index,
-  handleClickOpen,
-}) => {
+const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
+  const dispatch = useDispatch();
+
+
+
   return (
     <Card className="custom_card">
       <Box className="aspectImgs">
@@ -37,21 +39,14 @@ const MainCard: FC<IpropsMainCard> = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <IconButton title="Download Image">
+          <IconButton title="Download Image"  onClick={()=> dispatch(handleLike(item))}>
             <FileDownloadOutlinedIcon />
           </IconButton>
         </a>
-        <IconButton
-
-          className="like_btn"
-
-        >
-
+        <IconButton className="like_btn">
           <FavoriteBorderIcon />
-
         </IconButton>
       </Box>
-
     </Card>
   );
 };

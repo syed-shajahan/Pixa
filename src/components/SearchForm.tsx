@@ -10,7 +10,6 @@ const SearchForm = () => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
     setQuery('');
 

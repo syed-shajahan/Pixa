@@ -3,6 +3,7 @@ import SearchPage from "../pages/SearchPage";
 import Home from "../pages/Home";
 import MainLayout from "../layouts/MainLayout";
 import TestLayout from "../layouts/TestLayout";
+import LikesPage from "../pages/LikesPage";
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const routes = createBrowserRouter([
         path: "/search",
         element: <SearchPage />,
       },
+      {
+        path:'likePost',
+        element:<LikesPage />
+      }
     ],
   },
 

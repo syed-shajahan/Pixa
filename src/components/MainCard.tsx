@@ -4,9 +4,11 @@ import { IconButton } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { FC } from "react";
-import { IpropsData } from "../pages/Home";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleLike } from "../store/slices/likePost";
+import { IpropsData } from "../utils/types/types";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { RootState } from "../store/store";
 
 interface IpropsMainCard {
   item: IpropsData;
@@ -15,9 +17,10 @@ interface IpropsMainCard {
 }
 
 const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
+
+  const likedItems = useSelector((state: RootState) => state.likePosts.likedPost);
   const dispatch = useDispatch();
-
-
+  const isLiked = likedItems.some((likedItem) => likedItem.id === item.id);
 
   return (
     <Card className="custom_card">
@@ -39,12 +42,13 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <IconButton title="Download Image"  onClick={()=> dispatch(handleLike(item))}>
+          <IconButton title="Download Image"  >
             <FileDownloadOutlinedIcon />
           </IconButton>
         </a>
-        <IconButton className="like_btn">
-          <FavoriteBorderIcon />
+        <IconButton className="like_btn" onClick={() => dispatch(handleLike(item))}>
+        
+          {isLiked ? <FavoriteIcon style={{ color: '#f5167f' }} /> : <FavoriteBorderIcon />}
         </IconButton>
       </Box>
     </Card>

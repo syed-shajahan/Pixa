@@ -9,7 +9,10 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FC } from 'react';
-import { IpropsData } from '../pages/Home';
+import { IpropsData } from '../utils/types/types';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useDispatch } from 'react-redux';
+import { handleLike } from '../store/slices/likePost';
 
 interface IPopupModalProps {
   open: boolean;
@@ -28,6 +31,8 @@ const PopupModal: FC<IPopupModalProps> = ({
   handleNextImage,
   data,
 }) => {
+
+  const dispatch= useDispatch();
   return (
     <>
       <Dialog
@@ -58,7 +63,10 @@ const PopupModal: FC<IPopupModalProps> = ({
         {/* image-like content-below */}
         <Box className="ModelaspectImgs" sx={{ position: 'relative' }}>
           <img src={data[currentIndex]?.urls.regular} alt="" />
-
+          
+          <IconButton className="like_btn" onClick={() => data[currentIndex]&&(dispatch(handleLike(data[currentIndex]))) }>
+          <FavoriteBorderIcon />
+        </IconButton>
           <a
             href={data[currentIndex]?.urls.regular}
             className="img_downLoadBtn"

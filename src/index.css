@@ -266,6 +266,27 @@ code {
   animation: 0.7s arrowInfinite linear infinite !important;
 }
 
+.likeLink {
+  position: relative;
+}
+
+.likeLink .flotNumber {
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  right: -13px;
+  top: -8px;
+  background-color: #f5167f;
+  color: #fff;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #FFF;
+  font-size: 12px;
+}
+
 @keyframes arrowInfinite {
   0% {
     transform: translateY(100px);

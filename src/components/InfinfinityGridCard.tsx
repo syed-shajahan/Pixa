@@ -2,19 +2,19 @@ import Box from "@mui/material/Box";
 import { CircularProgress } from "@mui/material";
 import MainCard from "../components/MainCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IpropsData } from "../pages/Home";
 import { FC, useState } from "react";
 import PopupModal from "./PopupModal";
+import { IpropsData } from "../utils/types/types";
 
 interface InfinfinityGridCardProps {
   data: IpropsData[];
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage?: React.Dispatch<React.SetStateAction<number>>;
   loading?: boolean;
 }
 
 const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
   data,
-  setPage,
+  setPage = () => {},
   loading,
 }) => {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
   return (
     <>
       {loading && (
-        <div
+        <Box
           style={{
             position: "fixed",
             left: "50%",
@@ -53,7 +53,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
           }}
         >
           <CircularProgress />
-        </div>
+        </Box>
       )}
       <InfiniteScroll
         dataLength={data.length}
@@ -69,11 +69,10 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
         <Box
           sx={{
             columns: { md: "2", sm: "2", xs: "1", lg: "3" },
-            // columnWidth: "320px",
             columnGap: "10px",
           }}
         >
-          {data?.map((item: any, index: number) => (
+          {data?.map((item, index) => (
             <Box
               key={index}
               sx={{ width: "100%", marginBottom: "10px", breakInside: "avoid" }}

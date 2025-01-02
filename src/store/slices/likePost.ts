@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IpropsData } from '../../pages/Home';
+import { IpropsData } from '../../utils/types/types';
 
 
 interface LikePostState {
@@ -14,17 +14,22 @@ const likePostSlice = createSlice({
   name: 'likePosts',
   initialState,
   reducers: {
-    // Action to add a liked post
+
     handleLike(state, action: PayloadAction<IpropsData>) {
+
+    
       const existingPost = state.likedPost.find(post => post.id === action.payload.id);
-      if (!existingPost) {
+
+      if (existingPost) {
+        state.likedPost = state.likedPost.filter(post => post.id !== action.payload.id);
+      } else {
         state.likedPost.push(action.payload);
       }
-      else{
-         state.likedPost = state.likedPost.filter(post => post.id === action.payload.id);
-      }
+       console.log('Updated likedPost State:', state.likedPost);
     },
   
+
+
    
   },
 });

@@ -21,7 +21,7 @@ const SearchForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} action="#" className="searchForm">
+      <form onSubmit={handleSubmit} action="#" className="searchForm" >
         <TextField
           className="form_Input"
           style={{ width: '100%' }}

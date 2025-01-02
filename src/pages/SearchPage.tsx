@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Preloader from "../components/Preloder";
 import InfinfinityGridCard from "../components/InfinfinityGridCard";
-import { IpropsData } from "./Home";
 
 import { useSearchParams } from "react-router-dom";
 import { usePage } from "../utils/contextapi/PageContext";
+import { IpropsData } from "../utils/types/types";
 
 const SearchPage = () => {
   const { page, setPage, loading, setLoading } = usePage();

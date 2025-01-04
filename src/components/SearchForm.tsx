@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, {useState } from 'react'
 import { IconButton } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import SearchIcon from '@mui/icons-material/Search'

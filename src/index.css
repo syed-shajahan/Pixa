@@ -113,7 +113,7 @@ code {
 }
 
 .searchForm {
-  margin: 40px auto 20px;
+  margin: 20px auto;
   width: 90%;
   position: sticky;
   z-index: 99;

@@ -11,7 +11,7 @@ const Header = () => {
   const likesCount= useSelector((state:RootState)=> state.likePosts.likedPost)
   return (
     <Box>
-      <a href="/" className="logo_txt">
+      <Link to="/" className="logo_txt">
         <Typography
           variant="h1"
           textAlign={"center"}
@@ -21,7 +21,7 @@ const Header = () => {
           {LandingPageTitles.LOGO_TITLES}
           <CollectionsOutlinedIcon className="camera" />
         </Typography>
-      </a>
+      </Link>
 
       <Box display={"flex"} alignItems={"center"} justifyContent={'start'} padding={'0px 10px'} sx={{width:'90%', margin:"0px auto "}} >
         <SearchForm />

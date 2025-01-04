@@ -21,6 +21,7 @@ const SearchPage = () => {
     if (!query.trim()) return;
     setLoading(true);
     try {
+      setData([]);
       const data = await fetch(
         `https://api.unsplash.com/search/photos?query=${query}&client_id=${process.env.REACT_APP_ACCESS_KEY}&page=${page}`
       );

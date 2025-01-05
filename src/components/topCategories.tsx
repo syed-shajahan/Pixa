@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { usePage } from '../utils/contextapi/PageContext';
 
 const categories = [
   { id: 1, name: "aesthetics" },
@@ -28,13 +29,14 @@ const categories = [
   { id: 20, name: "fine art" },
 ];
 const TopCategories = () => {
-
+  const { setPage, } = usePage();
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
 
 
 
   const handleChange =(event: React.SyntheticEvent, newValue: number)=>{
+    setPage(1);
     setValue(newValue);
     const selectedCategory  = categories[newValue]?.name.trim()|| '';
     navigate(`/search?query=${encodeURIComponent(selectedCategory)}`)

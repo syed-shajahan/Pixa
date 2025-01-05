@@ -3,16 +3,18 @@ import { IconButton } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
+import { usePage } from '../utils/contextapi/PageContext'
 
 
 const SearchForm = () => {
+  const { setPage, } = usePage();
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setQuery('');
-
+    setPage(1)
     if (query.trim()) {
       navigate(`/search?query=${encodeURIComponent(query)}`)
     }

@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import SearchPage from "../pages/SearchPage";
-import Home from "../pages/Home";
+import SearchPage from "../pages/search-page";
+import Home from "../pages/home";
 import MainLayout from "../layouts/MainLayout";
 import TestLayout from "../layouts/TestLayout";
-import LikesPage from "../pages/LikesPage";
+import LikesPage from "../pages/likes";
 
 const routes = createBrowserRouter([
   {

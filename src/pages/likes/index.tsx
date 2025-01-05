@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import InfinfinityGridCard from "../components/InfinfinityGridCard";
+
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 import InterestsIcon from '@mui/icons-material/Interests';
+import InfinfinityGridCard from "../../components/InfinfinityGridCard";
+import { RootState } from "../../store/store";
 const LikesPage = () => {
   const likedPost = useSelector( (state: RootState) => state.likePosts.likedPost);
   return (

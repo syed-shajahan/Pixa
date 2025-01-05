@@ -255,6 +255,7 @@ code {
   bottom: 100px !important;
   transition: 0.5s ease-in-out !important;
   overflow: hidden !important;
+  z-index: 100;
 }
 
 .toTopBtn:hover {

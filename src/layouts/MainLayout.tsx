@@ -13,6 +13,7 @@ const MainLayout = () => {
 
   return (
     <>
+    <PageProvider>
       <Header />
       <TopCategories />
 
@@ -20,9 +21,9 @@ const MainLayout = () => {
         <ArrowUpwardIcon />
       </IconButton>
 
-      <PageProvider>
+
         <Outlet />
-      </PageProvider>
+    </PageProvider>
     </>
   );
 };

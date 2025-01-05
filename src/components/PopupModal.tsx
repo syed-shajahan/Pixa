@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { CardContent, IconButton, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,6 +13,7 @@ import { IpropsData } from '../utils/types/types';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch } from 'react-redux';
 import { handleLike } from '../store/slices/likePost';
+import { Link } from 'react-router-dom';
 
 interface IPopupModalProps {
   open: boolean;
@@ -67,8 +68,8 @@ const PopupModal: FC<IPopupModalProps> = ({
           <IconButton className="like_btn" onClick={() => data[currentIndex]&&(dispatch(handleLike(data[currentIndex]))) }>
           <FavoriteBorderIcon />
         </IconButton>
-          <a
-            href={data[currentIndex]?.urls.regular}
+          <Link
+            to={data[currentIndex]?.urls.regular}
             className="img_downLoadBtn"
             download
             target="\blank"
@@ -76,7 +77,7 @@ const PopupModal: FC<IPopupModalProps> = ({
             <IconButton>
               <FileDownloadOutlinedIcon />
             </IconButton>
-          </a>
+          </Link>
           <IconButton className="slider_btns left" onClick={handlePrevImage}>
             <ArrowBackIosIcon />
           </IconButton>

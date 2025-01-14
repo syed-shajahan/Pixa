@@ -8,6 +8,8 @@ import InfinfinityGridCard from "../../components/InfinfinityGridCard";
 import { RootState } from "../../store/store";
 const LikesPage = () => {
   const likedPost = useSelector( (state: RootState) => state.likePosts.likedPost);
+
+  
   return (
     <>
       <Box className="gridContainer">

@@ -11,9 +11,13 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { FC } from 'react';
 import { IpropsData } from '../utils/types/types';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleLike } from '../store/slices/likePost';
 import { Link } from 'react-router-dom';
+import { RootState } from '../store/store';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import useIsLiked from '../utils/hooks/useIsLiked';
+
 
 interface IPopupModalProps {
   open: boolean;
@@ -33,7 +37,10 @@ const PopupModal: FC<IPopupModalProps> = ({
   data,
 }) => {
 
+  const isLiked = useIsLiked(data[currentIndex]?.id);
+
   const dispatch= useDispatch();
+
   return (
     <>
       <Dialog
@@ -66,7 +73,7 @@ const PopupModal: FC<IPopupModalProps> = ({
           <img src={data[currentIndex]?.urls.regular} alt="" />
           
           <IconButton className="like_btn" onClick={() => data[currentIndex]&&(dispatch(handleLike(data[currentIndex]))) }>
-          <FavoriteBorderIcon />
+          {isLiked ? <FavoriteIcon style={{ color: '#f5167f' }} /> : <FavoriteBorderIcon />}
         </IconButton>
           <Link
             to={data[currentIndex]?.urls.regular}

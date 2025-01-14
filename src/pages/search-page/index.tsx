@@ -37,7 +37,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     
-    setData([]);
+ 
     setPage(1);
 
     SearchApi();
@@ -49,7 +49,7 @@ const SearchPage = () => {
 
   return (
     <Box>
-      <section className="landing_sec">
+      <Box className="landing_sec">
         <Box className="container">
           {loading && page === 1 ? (
             <Preloader />
@@ -63,7 +63,7 @@ const SearchPage = () => {
             </Box>
           )}
         </Box>
-      </section>
+      </Box>
     </Box>
   );
 };

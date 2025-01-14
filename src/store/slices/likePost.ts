@@ -25,11 +25,9 @@ const likePostSlice = createSlice({
       } else {
         state.likedPost.push(action.payload);
       }
-       console.log('Updated likedPost State:', state.likedPost);
+      
     },
   
-
-
    
   },
 });

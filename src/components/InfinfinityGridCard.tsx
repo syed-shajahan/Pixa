@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import MainCard from "../components/MainCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FC, useState } from "react";
@@ -61,9 +61,9 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
         hasMore={true}
         loader={<></>}
         endMessage={
-          <p style={{ textAlign: "center" }}>
-            <b>Yay! You have seen it all</b>
-          </p>
+          <Typography style={{ textAlign: "center" }}>
+             Yay! You have seen it all
+          </Typography>
         }
       >
         <Box

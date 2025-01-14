@@ -4,11 +4,12 @@ import { IconButton } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleLike } from "../store/slices/likePost";
 import { IpropsData } from "../utils/types/types";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { RootState } from "../store/store";
+import useIsLiked from "../utils/hooks/useIsLiked";
+import { Link } from "react-router-dom";
 
 interface IpropsMainCard {
   item: IpropsData;
@@ -17,10 +18,11 @@ interface IpropsMainCard {
 }
 
 const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
-
-  const likedItems = useSelector((state: RootState) => state.likePosts.likedPost);
   const dispatch = useDispatch();
-  const isLiked = likedItems.some((likedItem) => likedItem.id === item.id);
+
+  const isLiked = useIsLiked(item.id);;
+
+  
 
   return (
     <Card className="custom_card">
@@ -31,12 +33,12 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
           alt={item.alt_description}
           onClick={() => handleClickOpen(index)}
         />
-        <span className="profilePics">
+        <Box className="profilePics">
           <img src={item.user.profile_image.medium} alt="" />
-        </span>
+        </Box>
 
-        <a
-          href={item.urls.full}
+        <Link
+          to={item.urls.full}
           className="img_downLoadBtn"
           download
           target="_blank"
@@ -45,7 +47,7 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
           <IconButton title="Download Image"  >
             <FileDownloadOutlinedIcon />
           </IconButton>
-        </a>
+        </Link>
         <IconButton className="like_btn" onClick={() => dispatch(handleLike(item))}>
         
           {isLiked ? <FavoriteIcon style={{ color: '#f5167f' }} /> : <FavoriteBorderIcon />}

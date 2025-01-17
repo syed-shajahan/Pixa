@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Preloader from "../../components/Preloder";
 import InfinfinityGridCard from "../../components/InfinfinityGridCard";
 import { IpropsData } from "../../utils/types/types";
+import { Typography } from "@mui/material";
+import WelcomeMessage from "../../components/WelcomeMessage";
 
 const Home = () => {
   const [data, setData] = useState<IpropsData[]>([]);
@@ -32,7 +34,10 @@ const Home = () => {
   return (
     <>
       <section className="landing_sec">
+       
+        
         <Box className="container">
+        <WelcomeMessage />
           {loading && page === 1 ? (
             <Preloader />
           ) : (

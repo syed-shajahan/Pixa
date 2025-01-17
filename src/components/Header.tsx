@@ -7,8 +7,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import ProfileDropdown from "./HeaderDropDownToggle";
 const Header = () => {
-  const likesCount= useSelector((state:RootState)=> state.likePosts.likedPost)
+  const likesCount = useSelector(
+    (state: RootState) => state.likePosts.likedPost
+  );
+
   return (
     <Box>
       <Link to="/" className="logo_txt">
@@ -23,23 +27,30 @@ const Header = () => {
         </Typography>
       </Link>
 
-      <Box display={"flex"} alignItems={"center"} justifyContent={'start'} padding={'0px 10px'} sx={{width:'90%', margin:"0px auto "}} >
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"start"}
+        padding={"0px 10px"}
+        sx={{ width: "90%", margin: "0px auto " }}
+      >
         <SearchForm />
+        
+        <Box sx={{position:'relative', display:'flex', alignItems:'center'}} >
+        <Link to="/likePost" title="your like posts here" className="likeLink">
+          <FavoriteIcon
+            style={{ color: `${likesCount.length > 0 ? "#ccc" : "#EEE"}` }}
+          />
+
+          {likesCount && likesCount.length > 0 && (
+            <Box className="flotNumber">{likesCount.length}</Box>
+          )}
+        </Link>
+        <ProfileDropdown />
+        </Box>
 
 
-        {
-          likesCount && likesCount.length  > 0 && (
-            <Link to='/likePost' title='your like posts here' className="likeLink">
-            <FavoriteIcon style={{ color: "#CCC" }} />
-   
-               <Box className='flotNumber'>
-                 {likesCount.length}
-               </Box>
-           </Link>
-          )
-        }
-
-       
+      
       </Box>
     </Box>
   );

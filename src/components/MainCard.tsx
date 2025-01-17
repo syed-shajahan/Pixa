@@ -10,6 +10,7 @@ import { IpropsData } from "../utils/types/types";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import useIsLiked from "../utils/hooks/useIsLiked";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface IpropsMainCard {
   item: IpropsData;
@@ -20,10 +21,22 @@ interface IpropsMainCard {
 const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
   const dispatch = useDispatch();
 
-  const isLiked = useIsLiked(item.id);;
+  const isLiked = useIsLiked(item.id);
+
+
+  const LikingPost = ()=> {
+    dispatch( handleLike(item ) );
+    if(isLiked){
+      if (isLiked) {
+        toast.info("Post unliked!");
+      } else {
+        toast.success("Post liked!");
+      }
+    }
+  
+  }
 
   
-
   return (
     <Card className="custom_card">
       <Box className="aspectImgs">
@@ -48,7 +61,7 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
             <FileDownloadOutlinedIcon />
           </IconButton>
         </Link>
-        <IconButton className="like_btn" onClick={() => dispatch(handleLike(item))}>
+        <IconButton className="like_btn" onClick={() => LikingPost()}>
         
           {isLiked ? <FavoriteIcon style={{ color: '#f5167f' }} /> : <FavoriteBorderIcon />}
         </IconButton>

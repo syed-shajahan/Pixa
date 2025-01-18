@@ -288,6 +288,8 @@ code {
   font-size: 12px;
 }
 
+
+
 @keyframes arrowInfinite {
   0% {
     transform: translateY(100px);
@@ -299,6 +301,40 @@ code {
 
   100% {
     transform: translateY(-100px);
+  }
+}
+
+.welcome-message {
+  white-space: nowrap;
+  transition: 2s welcome ease-out !important;
+  animation: 2s welcome ease-out  !important;
+  overflow: hidden;
+  width: 0%;
+  margin: auto;
+  pointer-events: none;
+  font-size: 12px !important;
+  font-weight: 500;
+  color: #3333333f;
+  max-width: max-content;
+} 
+
+@keyframes welcome {
+  0% {
+    width: 0%;
+    visibility: none;
+    opacity: 0%;
+  }
+
+  50% {
+    width: 100%;
+    visibility: visible;
+    opacity: 50%;
+  }
+
+  100% {
+    width: 0%;
+    visibility: visible;
+    opacity: 0%;
   }
 }
 

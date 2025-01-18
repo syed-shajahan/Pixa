@@ -42,6 +42,7 @@ const MainCard: FC<IpropsMainCard> = ({ item, index, handleClickOpen }) => {
       <Box className="aspectImgs">
         <img
           className="aspectImages cursor_pointer"
+          loading="lazy"
           src={item.urls.regular}
           alt={item.alt_description}
           onClick={() => handleClickOpen(index)}

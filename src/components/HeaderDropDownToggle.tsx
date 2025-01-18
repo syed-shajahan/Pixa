@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,29 +8,36 @@ import Divider from "@mui/material/Divider";
 import { auth } from "../fireBaseConfig";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import { Link, useNavigate  } from "react-router-dom";
 
 const ProfileDropdown = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate()
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleMenuOpen = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    []
+  );
 
-  const handleMenuClose = () => {
+  const handleMenuClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     try {
       await signOut(auth);
       toast.success("See you later! 👋");
-
-      handleMenuClose();
+      navigate('/login')
     } catch (error) {
       toast.error("Failed to sign out. Please try again.");
+    } finally {
+      handleMenuClose();
     }
-  };
+  }, [handleMenuClose]);
 
   return (
     <>
@@ -47,7 +54,6 @@ const ProfileDropdown = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleMenuClose}
-        onClick={handleMenuClose}
         PaperProps={{
           elevation: 3,
           sx: {
@@ -62,6 +68,17 @@ const ProfileDropdown = () => {
           <strong>Profile</strong>
         </MenuItem>
         <Divider />
+        <MenuItem>
+          <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
+            Login
+          </Link>
+        </MenuItem>
+
+        <MenuItem>
+          <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}>
+            signup
+          </Link>
+        </MenuItem>
         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       </Menu>
     </>

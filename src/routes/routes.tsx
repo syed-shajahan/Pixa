@@ -10,6 +10,15 @@ import Login from "../pages/registration/Login";
 
 const routes = createBrowserRouter([
   {
+    path: "/signup",
+    element: <Signup />,
+  },
+
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <MainLayout />,
     children: [
@@ -37,15 +46,7 @@ const routes = createBrowserRouter([
      
     ],
   },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
 
-  {
-    path: "/login",
-    element: <Login />,
-  },
 
   {
     path:"/sample-page",

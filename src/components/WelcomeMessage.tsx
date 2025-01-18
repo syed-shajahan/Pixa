@@ -7,7 +7,6 @@ const WelcomeMessage = () => {
 
   useEffect(() => {
     const user = auth.currentUser; 
-    console.log(user, 'Details here')
     if (user) {
       setUserName(user.displayName || "Guest"); 
       toast.success(`you have be Login as ${user.displayName}`);

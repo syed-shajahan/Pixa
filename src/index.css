@@ -34,7 +34,6 @@ code {
 }
 
 .aspectImgs {
-
   display: block;
   width: 100%;
   position: relative;
@@ -51,9 +50,7 @@ code {
   display: block;
   width: 100%;
   position: relative;
-
 }
-
 
 .ModelaspectImgs img {
   position: absolute;
@@ -62,7 +59,6 @@ code {
   width: 100%;
   height: 100%;
   object-fit: cover;
-
 }
 
 .cursor_pointer {
@@ -146,7 +142,7 @@ code {
 .form_Input input {
   font-size: 15px;
   color: #1b1b1b;
-  letter-spacing: 0.40px;
+  letter-spacing: 0.4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -211,7 +207,7 @@ code {
   position: absolute !important;
   top: 45% !important;
   transform: translateY(-45%) !important;
-  z-Index: 10 !important;
+  z-index: 10 !important;
   background-color: #ffffff29 !important;
   backdrop-filter: blur(5px) !important;
   display: flex !important;
@@ -229,7 +225,6 @@ code {
   color: #ffffffbd !important;
 }
 
-
 .slider_btns.left svg {
   transform: translateX(4px);
 }
@@ -241,7 +236,6 @@ code {
 .slider_btns.left {
   left: -70px;
 }
-
 
 .toTopBtn {
   border: 1px solid #3a393b87 !important;
@@ -284,11 +278,9 @@ code {
   justify-content: center;
   align-items: center;
   padding: 8px;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   font-size: 12px;
 }
-
-
 
 @keyframes arrowInfinite {
   0% {
@@ -307,7 +299,7 @@ code {
 .welcome-message {
   white-space: nowrap;
   transition: 2s welcome ease-out !important;
-  animation: 2s welcome ease-out  !important;
+  animation: 2s welcome ease-out !important;
   overflow: hidden;
   width: 0%;
   margin: auto;
@@ -316,7 +308,7 @@ code {
   font-weight: 500;
   color: #3333333f;
   max-width: max-content;
-} 
+}
 
 @keyframes welcome {
   0% {
@@ -338,9 +330,8 @@ code {
   }
 }
 
-
 /* All media quaries here below */
-@media(max-width:992px) {
+@media (max-width: 992px) {
   .gridContainer {
     margin: 20px auto;
   }

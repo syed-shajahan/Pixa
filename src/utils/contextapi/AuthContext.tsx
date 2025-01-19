@@ -1,11 +1,22 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { User } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  User,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../../fireBaseConfig";
 
 interface AuthContextType {
   user: User | null; 
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   isAuthenticated: boolean; 
-  logout: () => void; 
+  logOut: () => void; 
+  googleSignIn: ()=>void;
+  emailSign: (email: string, password: string) => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -13,9 +24,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const logout = () => {
-    setUser(null); 
+  const logOut = () => {
+    signOut(auth); 
   };
+
+  const googleSignIn = () => {
+    const googleAuthProvider = new GoogleAuthProvider();
+    return signInWithPopup(auth, googleAuthProvider);
+  };
+
+  const emailSign = (name:string , Password:string )=>{
+    signInWithEmailAndPassword(auth, name , Password)
+
+  }
 
   return (
     <AuthContext.Provider
@@ -23,7 +44,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         setUser,
         isAuthenticated: !!user, 
-        logout,
+        logOut,
+        googleSignIn,
+        emailSign
       }}
     >
       {children}

@@ -5,14 +5,14 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import { auth } from "../fireBaseConfig";
 import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/contextapi/AuthContext";
+import { auth } from "../fireBaseConfig";
 
 const ProfileDropdown = () => {
-
-  const navigate = useNavigate()
+  const { user, logOut } = useAuth(); 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
 
@@ -29,15 +29,16 @@ const ProfileDropdown = () => {
 
   const handleSignOut = useCallback(async () => {
     try {
-      await signOut(auth);
+      await logOut();
       toast.success("See you later! 👋");
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       toast.error("Failed to sign out. Please try again.");
     } finally {
       handleMenuClose();
     }
-  }, [handleMenuClose]);
+  }, [handleMenuClose, logOut, navigate]);
+
 
   return (
     <>
@@ -46,7 +47,7 @@ const ProfileDropdown = () => {
           <Avatar
             sx={{ width: 32, height: 32 }}
             alt="User Profile"
-            src="/path/to/your/profile/image"
+            src={auth?.currentUser?.photoURL || "/path/to/default/profile/image"}
           />
         </IconButton>
       </Tooltip>
@@ -68,18 +69,28 @@ const ProfileDropdown = () => {
           <strong>Profile</strong>
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}>
-            Login
-          </Link>
-        </MenuItem>
-
-        <MenuItem>
-          <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}>
-            signup
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+        {!auth?.currentUser?  (
+          <>
+            <MenuItem>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Login
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link
+                to="/signup"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Signup
+              </Link>
+            </MenuItem>
+          </>
+        ) : (
+          <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+        )}
       </Menu>
     </>
   );

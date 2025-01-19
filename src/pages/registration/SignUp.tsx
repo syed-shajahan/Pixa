@@ -73,7 +73,7 @@ const Signup = () => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      bgcolor="#ccc"
+      bgcolor="#EEE"
     >
       <Paper
         elevation={3}
@@ -84,16 +84,16 @@ const Signup = () => {
           width: "100%",
         }}
       >
-        <Typography
-          variant="h4"
-          component="h2"
-          textAlign="center"
-          color="secondary"
-          fontWeight="bold"
-          mb={3}
-        >
-          Signup
-        </Typography>
+         <Typography
+                variant="h4"
+                component="h2"
+                textAlign="center"
+      
+                fontWeight="bold"
+                mb={3}
+              >
+                Pixa Signup
+              </Typography>
 
         {error && (
           <Typography color="error" textAlign="center" mb={2}>
@@ -136,7 +136,19 @@ const Signup = () => {
           fullWidth
           variant="contained"
           color="secondary"
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            background: '#fff',
+            border: '1px solid #ccc',
+            color: '#333',
+            padding:'10px',
+            shadow: 'none',
+            '&:hover': {
+              background: '#f0f0f0', 
+              border: '1px solid #bbb',
+              color: '#000', 
+            },
+          }}
           onClick={handleSignup}
           disabled={loading}
         >
@@ -150,7 +162,7 @@ const Signup = () => {
           mt={3}
         >
           Already have an account?{" "}
-          <Link to="/login" style={{ color: "#d81b60", fontWeight: "bold" }}>
+          <Link to="/login" style={{ color: "#000", fontWeight: "bold" }}>
             Login
           </Link>
         </Typography>

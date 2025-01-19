@@ -28,25 +28,30 @@ const categories = [
   { id: 19, name: "product photography" },
   { id: 20, name: "fine art" },
 ];
+
 const TopCategories = () => {
-  const { setPage, } = usePage();
+  const { setPage } = usePage();
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
 
-
-
-  const handleChange =(event: React.SyntheticEvent, newValue: number)=>{
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setPage(1);
     setValue(newValue);
-    const selectedCategory  = categories[newValue]?.name.trim()|| '';
-    navigate(`/search?query=${encodeURIComponent(selectedCategory)}`)
-
-  }
-
-
+    const selectedCategory = categories[newValue]?.name.trim() || '';
+    navigate(`/search?query=${encodeURIComponent(selectedCategory)}`);
+  };
 
   return (
-    <Box sx={{ display:'flex',justifyContent:'center', bgcolor: 'background.paper', maxWidth:'1400px' , margin:'auto', padding:"0px 10px" }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        bgcolor: 'background.paper',
+        maxWidth: '1400px',
+        margin: 'auto',
+        padding: '0px 10px',
+      }}
+    >
       <Tabs
         value={value}
         onChange={handleChange}
@@ -54,8 +59,29 @@ const TopCategories = () => {
         scrollButtons
         allowScrollButtonsMobile
         aria-label="scrollable force tabs example"
+        sx={{
+       
+          color:"red", 
+          '.MuiTabs-scroller': {
+            borderRadius: '50px', 
+          },
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#000', 
+          },
+          display: 'flex',
+          alignItems: 'center',
+          '& .MuiTab-root': {
+            fontSize: { xs: '14px', lg: '12px' },
+          },
+          '@media (max-width:600px)': {
+            borderRadius: '50px',
+            '& .MuiTabs-scrollButtons': {
+              display: 'none', 
+            },
+          },
+        }}
       >
-          {categories.map((category) => (
+        {categories.map((category) => (
           <Tab key={category.id} label={category.name} />
         ))}
       </Tabs>

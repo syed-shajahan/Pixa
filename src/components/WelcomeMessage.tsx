@@ -8,7 +8,9 @@ const WelcomeMessage = () => {
     const user = auth.currentUser;
     if (user) {
       setUserName(user.displayName || "Guest");
-      toast.success(`you have be Login as ${user.displayName}`);
+      toast.dark(`you have be Login ${user.displayName}` , {
+        position: 'bottom-right',
+      });
     }
   }, []);
 

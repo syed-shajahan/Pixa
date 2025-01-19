@@ -32,25 +32,28 @@ const Header = () => {
         alignItems={"center"}
         justifyContent={"start"}
         padding={"0px 10px"}
-        sx={{ width: "90%", margin: "0px auto " }}
+        sx={{
+          width: { lg: '90%', xs: '100%' }, 
+          margin: "0px auto",
+        }}
       >
         <SearchForm />
-        
-        <Box sx={{position:'relative', display:'flex', alignItems:'center'}} >
-        <Link to="/likePost" title="your like posts here" className="likeLink">
-          <FavoriteIcon
-            style={{ color: `${likesCount.length > 0 ? "#ccc" : "#EEE"}` }}
-          />
 
-          {likesCount && likesCount.length > 0 && (
-            <Box className="flotNumber">{likesCount.length}</Box>
-          )}
-        </Link>
-        <ProfileDropdown />
+        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }} >
+          <Link to="/likePost" title="your like posts here" className="likeLink">
+            <FavoriteIcon
+              style={{ color: `${likesCount.length > 0 ? "#ccc" : "#EEE"}` }}
+            />
+
+            {likesCount && likesCount.length > 0 && (
+              <Box className="flotNumber">{likesCount.length}</Box>
+            )}
+          </Link>
+          <ProfileDropdown />
         </Box>
 
 
-      
+
       </Box>
     </Box>
   );

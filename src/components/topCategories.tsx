@@ -60,8 +60,7 @@ const TopCategories = () => {
         allowScrollButtonsMobile
         aria-label="scrollable force tabs example"
         sx={{
-       
-          color:"red", 
+      
           '.MuiTabs-scroller': {
             borderRadius: '50px', 
           },

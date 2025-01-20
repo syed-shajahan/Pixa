@@ -17,6 +17,7 @@ interface AuthContextType {
   logOut: () => void; 
   googleSignIn: ()=>void;
   emailSign: (email: string, password: string) => void; 
+  SignUp:(email: string, password: string) => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,15 +29,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signOut(auth); 
   };
 
-  const googleSignIn = () => {
+  const googleSignIn = async() => {
     const googleAuthProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleAuthProvider);
   };
 
-  const emailSign = (name:string , Password:string )=>{
-    signInWithEmailAndPassword(auth, name , Password)
+  const emailSign = async(email:string , Password:string )=>{
+   await signInWithEmailAndPassword(auth, email , Password)
 
   }
+
+
+  const SignUp=async (email:string , Password:string)=>{
+     createUserWithEmailAndPassword(auth, email , Password);
+
+}
 
   return (
     <AuthContext.Provider
@@ -46,7 +53,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isAuthenticated: !!user, 
         logOut,
         googleSignIn,
-        emailSign
+        emailSign,
+        SignUp
       }}
     >
       {children}

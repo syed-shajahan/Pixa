@@ -11,7 +11,7 @@ import { useAuth } from "../utils/contextapi/AuthContext";
 import { auth } from "../fireBaseConfig";
 
 const ProfileDropdown = () => {
-  const { user, logOut } = useAuth(); 
+  const { logOut } = useAuth(); 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);

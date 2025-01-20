@@ -8,12 +8,13 @@ import {
   Paper,
   CircularProgress,
 } from "@mui/material";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../fireBaseConfig";
-import { Preview } from "@mui/icons-material";
 import { toast } from 'react-toastify';
+import { useAuth } from "../../utils/contextapi/AuthContext";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const Signup = () => {
+
+  const { SignUp, googleSignIn } = useAuth()
   const navigate = useNavigate();
 
   // State management
@@ -43,18 +44,14 @@ const Signup = () => {
 
     try {
 
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formState.email,
-        formState.password
-      );
+      await SignUp(formState.email,
+        formState.password)
 
-      // Update user profile with the name
-      await updateProfile(userCredential.user, {
-        displayName: formState.name,
-      });
+      // await updateProfile(userCredential.user, {
+      //   displayName: formState.name,
+      // });
 
-      console.log("User registered:", userCredential.user);
+      // console.log("User registered:", userCredential.user);
 
       toast.success('You have been Registered');
 
@@ -66,6 +63,19 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+
+    try {
+      await googleSignIn();
+      navigate("/");
+
+    } catch (error: any) {
+      console.error("Login error:", error.message);
+      toast.error(error.message);
+    }
+
+  }
 
   return (
     <Box
@@ -84,22 +94,44 @@ const Signup = () => {
           width: "100%",
         }}
       >
-         <Typography
-                variant="h4"
-                component="h2"
-                textAlign="center"
-      
-                fontWeight="bold"
-                mb={3}
-              >
-                Pixa Signup
-              </Typography>
+        <Typography
+          variant="h4"
+          component="h2"
+          textAlign="center"
+
+          fontWeight="bold"
+          mb={3}
+        >
+          Pixa Signup
+        </Typography>
 
         {error && (
           <Typography color="error" textAlign="center" mb={2}>
             {error}
           </Typography>
         )}
+
+       
+
+
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mb: 2, background: '#000', display: 'flex', item: 'center', borderRadiu: '25px' }}
+          onClick={handleGoogleSignIn}
+          disabled={loading}
+
+
+        >
+          <Box mt={1} sx={{ marginRight: "5px" }}>
+            <GoogleIcon />
+          </Box>{" "}
+          Sign in with google
+        </Button>
+
+        <Typography variant="h6">
+          Enter your email below to create your account
+        </Typography>
 
         <TextField
           fullWidth
@@ -141,12 +173,12 @@ const Signup = () => {
             background: '#fff',
             border: '1px solid #ccc',
             color: '#333',
-            padding:'10px',
+            padding: '10px',
             shadow: 'none',
             '&:hover': {
-              background: '#f0f0f0', 
+              background: '#f0f0f0',
               border: '1px solid #bbb',
-              color: '#000', 
+              color: '#000',
             },
           }}
           onClick={handleSignup}

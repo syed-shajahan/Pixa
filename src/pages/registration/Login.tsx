@@ -7,10 +7,7 @@ import {
   Button,
   Paper,
   CircularProgress,
-  ButtonBase,
 } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../fireBaseConfig";
 import { useAuth } from "../../utils/contextapi/AuthContext";
 import GoogleIcon from "@mui/icons-material/Google";
 import { toast } from "react-toastify";
@@ -19,7 +16,6 @@ const Login: React.FC = () => {
   const { googleSignIn, emailSign } = useAuth();
   const navigate = useNavigate();
 
-  // State for form inputs, loading, and error handling
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -27,7 +23,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Handle input changes
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState((prevState) => ({
@@ -36,15 +32,12 @@ const Login: React.FC = () => {
     }));
   };
 
-  // Handle Login action
+
   const handleLogin = async () => {
     setLoading(true);
     setError("");
 
     try {
-
-
-
       await emailSign(formState.email,
         formState.password);
 

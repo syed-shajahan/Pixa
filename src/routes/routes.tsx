@@ -7,8 +7,35 @@ import LikesPage from "../pages/likes";
 import Signup from "../pages/registration/SignUp";
 import SamplePage from "../pages/SamplePage";
 import Login from "../pages/registration/Login";
+import ProtectedRoutes from "./protected-routes/ProtectedRoutes";
 
 const routes = createBrowserRouter([
+
+  {
+    element: <ProtectedRoutes />,
+    children:[
+
+      {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/search",
+            element: <SearchPage />,
+          },
+          {
+            path:'likePost',
+            element:<LikesPage />
+          }
+        ],
+      },
+
+    ]
+  },
   {
     path: "/signup",
     element: <Signup />,
@@ -18,24 +45,7 @@ const routes = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/search",
-        element: <SearchPage />,
-      },
-      {
-        path:'likePost',
-        element:<LikesPage />
-      }
-    ],
-  },
+  
 
   {
     path: "/test-layout",

@@ -10,11 +10,14 @@ import Login from "../pages/registration/Login";
 import ProtectedRoutes from "./protected-routes/ProtectedRoutes";
 
 const routes = createBrowserRouter([
+  {
+    path: "/sample",
+    element: <SamplePage />,
+  },
 
   {
     element: <ProtectedRoutes />,
-    children:[
-
+    children: [
       {
         path: "/",
         element: <MainLayout />,
@@ -28,13 +31,12 @@ const routes = createBrowserRouter([
             element: <SearchPage />,
           },
           {
-            path:'likePost',
-            element:<LikesPage />
-          }
+            path: "likePost",
+            element: <LikesPage />,
+          },
         ],
       },
-
-    ]
+    ],
   },
   {
     path: "/signup",
@@ -45,23 +47,13 @@ const routes = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  
 
   {
     path: "/test-layout",
     element: <TestLayout />,
 
-    children: [
-     
-     
-    ],
+    children: [],
   },
-
-
-  {
-    path:"/sample-page",
-    element : <SamplePage />
-  }
 ]);
 
 export default routes;

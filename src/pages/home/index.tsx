@@ -1,52 +1,64 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Preloader from "../../components/Preloder";
 import InfinfinityGridCard from "../../components/InfinfinityGridCard";
-import { IpropsData } from "../../utils/types/types";
 import WelcomeMessage from "../../components/WelcomeMessage";
+import { IpropsData } from "../../utils/types/types";
+
+const fetchPixaApi = async ({ pageParam = 1 }): Promise<IpropsData[]> => {
+  const accessKey = process.env.REACT_APP_ACCESS_KEY;
+
+  if (!accessKey) {
+    throw new Error("REACT_APP_ACCESS_KEY is not defined");
+  }
+
+  const API_URL = `https://api.unsplash.com/photos/?client_id=${accessKey}&page=${pageParam}`;
+  const { data } = await axios.get(API_URL);
+  return data;
+};
 
 const Home = () => {
-  const [data, setData] = useState<IpropsData[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  const {
+    data,
+    status,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: ["unsplashPhotos"],
+    queryFn: fetchPixaApi,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length === 0 ? undefined : allPages.length + 1;
+    },
+  });
 
-  const fetchData = async () => {
-
-    const API_URL = `https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_ACCESS_KEY}&page=${page}`;
-
-    setLoading(true);
-    try {
-      const response = await fetch(API_URL);
-      const responseData = await response.json();
-      setData((prevData) => [...prevData, ...responseData]);
-    } catch (error) {
-      console.error("Error fetching data:", error); 
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page]);
+  const allPhotos = data?.pages.flat() ?? [];
 
   return (
-    <>
-      <section className="landing_sec">
-       
-        
-        <Box className="container">
+    <section className="landing_sec">
+      <Box className="container">
         <WelcomeMessage />
-          {loading && page === 1 ? (
-            <Preloader />
-          ) : (
-            <Box className="gridContainer">
-              <InfinfinityGridCard data={data} setPage={setPage} />
-            </Box>
-          )}
-        </Box>
-      </section>
-    </>
+        {isLoading ? (
+          <Preloader />
+        ) : isError ? (
+          <div>Error: {(error as Error).message}</div>
+        ) : (
+          <Box className="gridContainer">
+            <InfinfinityGridCard
+              data={allPhotos}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage ?? false}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          </Box>
+        )}
+      </Box>
+    </section>
   );
 };
 

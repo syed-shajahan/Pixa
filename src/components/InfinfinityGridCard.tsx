@@ -8,17 +8,20 @@ import { IpropsData } from "../utils/types/types";
 
 interface InfinfinityGridCardProps {
   data: IpropsData[];
-  setPage?: React.Dispatch<React.SetStateAction<number>>;
-  loading?: boolean;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
 }
 
 const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
   data,
-  setPage = () => {},
-  loading,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
 }) => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   const handleClickOpen = (index: number) => {
     setOpen(true);
     setCurrentIndex(index);
@@ -42,27 +45,18 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
 
   return (
     <>
-      {loading && (
-        <Box
-          style={{
-            position: "fixed",
-            left: "50%",
-            top: "50%",
-            transform: ` translate(-50%, -50%)`,
-            zIndex: "100",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
       <InfiniteScroll
         dataLength={data.length}
-        next={() => setPage((prevPage: any) => prevPage + 1)}
-        hasMore={true}
-        loader={<></>}
+        next={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={
+          <Box sx={{ textAlign: "center", mt: 2 }}>
+            {isFetchingNextPage && <CircularProgress />}
+          </Box>
+        }
         endMessage={
-          <Typography style={{ textAlign: "center" }}>
-             Yay! You have seen it all
+          <Typography sx={{ textAlign: "center", mt: 2 }}>
+            Yay! You have seen it all
           </Typography>
         }
       >
@@ -72,7 +66,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
             columnGap: "10px",
           }}
         >
-          {data?.map((item, index) => (
+          {data.map((item, index) => (
             <Box
               key={index}
               sx={{ width: "100%", marginBottom: "10px", breakInside: "avoid" }}

@@ -8,9 +8,9 @@ import { IpropsData } from "../utils/types/types";
 
 interface InfinfinityGridCardProps {
   data: IpropsData[];
-  fetchNextPage: () => void;
-  hasNextPage: boolean;
-  isFetchingNextPage: boolean;
+  fetchNextPage?: () => void;
+  hasNextPage?: boolean;
+  isFetchingNextPage?: boolean;
 }
 
 const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
@@ -47,8 +47,8 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
     <>
       <InfiniteScroll
         dataLength={data.length}
-        next={fetchNextPage}
-        hasMore={hasNextPage}
+        next={fetchNextPage ?? (() => {})}
+        hasMore={hasNextPage ?? false}
         loader={
           <Box sx={{ textAlign: "center", mt: 2 }}>
             {isFetchingNextPage && <CircularProgress />}
@@ -62,14 +62,18 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
       >
         <Box
           sx={{
-            columns: { md: "2", sm: "2", xs: "1", lg: "3" },
+            columns: { md: 2, sm: 2, xs: 1, lg: 3 },
             columnGap: "10px",
           }}
         >
           {data.map((item, index) => (
             <Box
               key={index}
-              sx={{ width: "100%", marginBottom: "10px", breakInside: "avoid" }}
+              sx={{
+                width: "100%",
+                marginBottom: "10px",
+                breakInside: "avoid",
+              }}
             >
               <MainCard
                 item={item}

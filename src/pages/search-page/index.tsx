@@ -7,10 +7,11 @@ import { IpropsData } from "../../utils/types/types";
 import { usePage } from "../../utils/contextapi/PageContext";
 
 const SearchPage = () => {
-   const { page, setPage, loading, setLoading } = usePage();
+  const { page, setPage, loading, setLoading } = usePage();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
   const [data, setData] = useState<IpropsData[]>([]);
+  const [totalPages, setTotalPages] = useState<number | null>(null);
 
   const SearchApi = async () => {
     if (!query.trim()) return;
@@ -23,11 +24,11 @@ const SearchPage = () => {
       const res = await response.json();
 
       if (res?.results?.length) {
-      
-        setData((prev) => [...prev, ...res.results]);
+        setData((prev) => (page === 1 ? res.results : [...prev, ...res.results]));
+        setTotalPages(res.total_pages);
       } else if (page === 1) {
-       
         setData([]);
+        setTotalPages(0);
       }
     } catch (error) {
       console.error("Error loading data:", error);
@@ -36,16 +37,20 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    
- 
     setPage(1);
-
-    SearchApi();
   }, [query]);
 
   useEffect(() => {
-    if (page > 1) SearchApi();
-  }, [page]);
+    SearchApi();
+  }, [page, query]);
+
+  const fetchNextPage = () => {
+    if (!loading && hasNextPage) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const hasNextPage = totalPages !== null && page < totalPages;
 
   return (
     <Box>
@@ -57,8 +62,9 @@ const SearchPage = () => {
             <Box className="gridContainer">
               <InfinfinityGridCard
                 data={data}
-                setPage={setPage}
-                loading={loading}
+                fetchNextPage={fetchNextPage}
+                hasNextPage={hasNextPage}
+                isFetchingNextPage={loading && page > 1}
               />
             </Box>
           )}

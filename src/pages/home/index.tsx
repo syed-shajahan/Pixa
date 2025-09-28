@@ -21,7 +21,6 @@ const fetchPixaApi = async ({ pageParam = 1 }): Promise<IpropsData[]> => {
 const Home = () => {
   const {
     data,
-    status,
     error,
     fetchNextPage,
     hasNextPage,

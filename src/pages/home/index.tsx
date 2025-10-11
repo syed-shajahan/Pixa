@@ -6,17 +6,7 @@ import InfinfinityGridCard from "../../components/InfinfinityGridCard";
 import WelcomeMessage from "../../components/WelcomeMessage";
 import { IpropsData } from "../../utils/types/types";
 
-const fetchPixaApi = async ({ pageParam = 1 }): Promise<IpropsData[]> => {
-  const accessKey = process.env.REACT_APP_ACCESS_KEY;
-
-  if (!accessKey) {
-    throw new Error("REACT_APP_ACCESS_KEY is not defined");
-  }
-
-  const API_URL = `https://api.unsplash.com/photos/?client_id=${accessKey}&page=${pageParam}`;
-  const { data } = await axios.get(API_URL);
-  return data;
-};
+import { fetchPixaApi } from "../api/home-api";
 
 const Home = () => {
   const {
@@ -42,20 +32,21 @@ const Home = () => {
     <section className="landing_sec">
       <Box className="container">
         <WelcomeMessage />
-        {isLoading ? (
-          <Preloader />
-        ) : isError ? (
-          <div>Error: {(error as Error).message}</div>
-        ) : (
-          <Box className="gridContainer">
+
+        <Box className="gridContainer">
+          {isLoading ? (
+            <Preloader />
+          ) : isError ? (
+            <div>Error: {(error as Error).message}</div>
+          ) : (
             <InfinfinityGridCard
               data={allPhotos}
               fetchNextPage={fetchNextPage}
               hasNextPage={hasNextPage ?? false}
               isFetchingNextPage={isFetchingNextPage}
             />
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
     </section>
   );

@@ -33,7 +33,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
 
   const handlePrevImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1     
     );
   };
 
@@ -47,7 +47,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
     <>
       <InfiniteScroll
         dataLength={data.length}
-        next={fetchNextPage ?? (() => {})}
+        next={fetchNextPage ?? (() => {})}  
         hasMore={hasNextPage ?? false}
         loader={
           <Box sx={{ textAlign: "center", mt: 2 }}>
@@ -58,7 +58,7 @@ const InfinfinityGridCard: FC<InfinfinityGridCardProps> = ({
           <Typography sx={{ textAlign: "center", mt: 2 }}>
             Yay! You have seen it all
           </Typography>
-        }
+        }       
       >
         <Box
           sx={{
